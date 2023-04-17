@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewsAppForAndroid</string>
+    <string name="home_search">Search</string>
+</resources>
