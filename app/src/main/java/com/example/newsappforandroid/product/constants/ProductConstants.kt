@@ -4,9 +4,9 @@ class ProductConstants {
 
     companion object {
 
-        val API_KEY = ""
+        val API_KEY = "fd0786779d8c4090b36049262f7fd496"
 
-        val BASE_URL = "https://api.github.com"
+        val BASE_URL = "https://newsapi.org/v2/"
 
     }
 }

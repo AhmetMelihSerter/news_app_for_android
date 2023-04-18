@@ -1,8 +1,8 @@
-package com.example.newsappforandroid.feature.home.model
+package com.example.newsappforandroid.feature.news.news_sub.model
 
 import com.example.newsappforandroid.product.constants.ProductConstants.Companion.API_KEY
 
-data class HomeRequest(
+data class NewsRequest(
     var q: String,
     var page: Int = 1,
     var apiKey: String = API_KEY,

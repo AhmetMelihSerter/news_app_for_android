@@ -1,6 +1,6 @@
 package com.example.newsappforandroid.product.di
 
-import com.example.newsappforandroid.feature.home.service.IHomeService
+import com.example.newsappforandroid.feature.news.news_sub.service.INewsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getRetrofitHomeServiceInstance(retrofit: Retrofit) : IHomeService {
-        return retrofit.create(IHomeService::class.java)
+    fun getRetrofitHomeServiceInstance(retrofit: Retrofit) : INewsService {
+        return retrofit.create(INewsService::class.java)
     }
 }
