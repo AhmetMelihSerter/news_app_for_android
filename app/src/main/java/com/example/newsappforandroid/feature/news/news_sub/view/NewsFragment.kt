@@ -1,11 +1,13 @@
 package com.example.newsappforandroid.feature.news.news_sub.view
 
+import ArticleListAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentNewsBinding
 import com.example.newsappforandroid.feature.news.news_sub.view_model.NewsViewModel
@@ -22,9 +24,10 @@ class NewsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
+        viewModel.articleListAdapter = ArticleListAdapter(requireContext())
         viewModel.initialize(binding, hideKeyboard)
         view?.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus ->
-            Log.w("NewsFragment", "HasFocus: ${hasFocus}")
+            Log.w("NewsFragment", "HasFocus: $hasFocus")
         }
         return binding.root
     }
