@@ -8,5 +8,7 @@ class ProductConstants {
 
         val BASE_URL = "https://newsapi.org/v2/"
 
+        val BASE_URL_TEST = "https://newsapi.org/v2/"
+
     }
 }

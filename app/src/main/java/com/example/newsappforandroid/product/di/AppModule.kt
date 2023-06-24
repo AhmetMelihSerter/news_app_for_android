@@ -34,7 +34,7 @@ object AppModule {
     @Singleton
     fun logInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            //level = HttpLoggingInterceptor.Level.BODY
         }
         return interceptor
     }

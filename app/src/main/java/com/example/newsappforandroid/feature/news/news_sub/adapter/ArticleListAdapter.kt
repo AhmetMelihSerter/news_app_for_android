@@ -11,10 +11,11 @@ import com.example.newsappforandroid.feature._model.ArticlesModel
 
 class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<ArticleListAdapter.ModelViewHolder>() {
 
-    private var articleList: List<ArticlesModel>? = null
+    private var articleList = mutableListOf<ArticlesModel>()
 
-    fun setList(value: List<ArticlesModel>?) {
-        articleList = value
+    fun postValue(value: List<ArticlesModel>) {
+        articleList.clear()
+        articleList.addAll(value)
     }
 
     class ModelViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
@@ -37,11 +38,9 @@ class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<Ar
         return ModelViewHolder(view, context)
     }
 
-    override fun getItemCount(): Int {
-        return articleList?.size ?: 0
-    }
+    override fun getItemCount(): Int = articleList.size
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(articleList!![position])
+        holder.bindItems(articleList[position])
     }
 }

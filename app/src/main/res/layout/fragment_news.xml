@@ -52,6 +52,7 @@
                 android:id="@+id/searchNewsTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:hint="@{viewmodel.searchHasFocus ? @string/home_search_empty : @string/home_search}"
                 android:gravity="center_horizontal" />
 
