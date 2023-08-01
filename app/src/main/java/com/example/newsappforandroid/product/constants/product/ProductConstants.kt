@@ -1,4 +1,4 @@
-package com.example.newsappforandroid.product.constants
+package com.example.newsappforandroid.product.constants.product
 
 class ProductConstants {
 

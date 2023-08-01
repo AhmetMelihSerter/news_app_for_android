@@ -1,4 +1,4 @@
-package com.example.newsappforandroid.product.utils
+package com.example.newsappforandroid.product.constants.utils
 
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText

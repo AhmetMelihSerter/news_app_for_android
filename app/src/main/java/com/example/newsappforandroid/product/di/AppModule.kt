@@ -1,6 +1,6 @@
 package com.example.newsappforandroid.product.di
 
-import com.example.newsappforandroid.product.constants.ProductConstants.Companion.BASE_URL
+import com.example.newsappforandroid.product.constants.product.ProductConstants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

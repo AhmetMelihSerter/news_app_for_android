@@ -2,7 +2,7 @@ package com.example.newsappforandroid.retrofit_unit_test
 
 import android.util.Log
 import com.example.newsappforandroid.feature.news.news_sub.model.NewsRequest
-import com.example.newsappforandroid.product.constants.ProductConstants.Companion.BASE_URL_TEST
+import com.example.newsappforandroid.product.constants.product.ProductConstants.Companion.BASE_URL_TEST
 import org.junit.Test
 import retrofit2.Retrofit
 

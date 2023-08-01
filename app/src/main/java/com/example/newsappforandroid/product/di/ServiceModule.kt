@@ -2,7 +2,7 @@ package com.example.newsappforandroid.product.di
 
 import com.example.newsappforandroid.feature.news.news_sub.service.INewsService
 import com.example.newsappforandroid.feature.news.news_sub.service.NewsService
-import com.example.newsappforandroid.product.network.NewsApi
+import com.example.newsappforandroid.product.init.network.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

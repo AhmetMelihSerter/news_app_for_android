@@ -1,6 +1,6 @@
 package com.example.newsappforandroid.retrofit_unit_test
 
-import com.example.newsappforandroid.product.constants.ProductConstants
+import com.example.newsappforandroid.product.constants.product.ProductConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,9 +1,7 @@
-package com.example.newsappforandroid.product.network
+package com.example.newsappforandroid.product.init.network
 
 import com.example.newsappforandroid.feature.news.news_sub.model.NewsResponse
-import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface NewsApi {

@@ -16,6 +16,7 @@ class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<Ar
     fun postValue(value: List<ArticlesModel>) {
         articleList.clear()
         articleList.addAll(value)
+        notifyDataSetChanged()
     }
 
     class ModelViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
