@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentNewsBinding
 import com.example.newsappforandroid.feature.news.news_sub.view_model.NewsViewModel
@@ -14,20 +16,13 @@ import com.example.newsappforandroid.feature.news.news_sub.view_model.NewsViewMo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment() {
+class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
-    private val viewModel: NewsViewModel by viewModels()
+    override val layoutId: Int = R.layout.fragment_news
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentNewsBinding.inflate(inflater, container, false)
+    override val viewModel: NewsViewModel by viewModels()
+
+    override fun onViewModelPre(savedInstanceState: Bundle?) {
         viewModel.articleListAdapter = ArticleListAdapter(requireContext())
-        viewModel.initialize(binding, hideKeyboard)
-        view?.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus ->
-            Log.w("NewsFragment", "HasFocus: $hasFocus")
-        }
-        return binding.root
     }
 }

@@ -2,12 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/newsFragment">
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/newsFragment"
         android:name="com.example.newsappforandroid.feature.news.news_sub.view.NewsFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_news" />
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.example.newsappforandroid.feature.news.news_detail.view.NewsDetailFragment"
+        android:label="NewsDetailFragment"
+        tools:layout="@layout/fragment_news_detail" >
+        <argument
+            android:name="article"
+            app:argType="com.example.newsappforandroid.feature._model.ArticlesModel" />
+    </fragment>
+
 </navigation>

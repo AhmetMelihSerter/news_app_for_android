@@ -1,6 +1,7 @@
 package com.example.newsappforandroid.feature.news.news_sub.view_model
 
 import ArticleListAdapter
+import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import com.example.newsappforandroid.databinding.FragmentNewsBinding
 import com.example.newsappforandroid.feature._model.ArticlesModel
 import com.example.newsappforandroid.feature.news.news_sub.model.NewsRequest
 import com.example.newsappforandroid.feature.news.news_sub.service.INewsService
+import com.example.newsappforandroid.feature.news.news_sub.view.NewsFragmentDirections
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -38,9 +40,26 @@ class NewsViewModel @Inject constructor(private val service: INewsService) :
     override fun initialize(dataViewBinding: FragmentNewsBinding, hideKeyboard: () -> Unit) {
         super.initialize(dataViewBinding, hideKeyboard)
         binding.recyclerViewNews.adapter = articleListAdapter
+        articleListAdapter.onItemClickListener = onClickAdapter
         searchEditTextListenerFocus()
         searchEditTextListenerText()
         searchEditTextListenerOnClick()
+    }
+
+    private val onClickAdapter: (it: ArticlesModel) -> Unit = {
+        navigate(NewsFragmentDirections.actionNewsFragmentToNewsDetailFragment(it))
+    }
+
+    fun goToSecondFragmentClicked() {
+        //navigate(NewsDetailFragmentDirections())
+    }
+
+    fun goToSecondFragmentWithArgs() {
+        /*navigate(
+            NewsDetailFragmentDirections.actionFirstSceneFragmentToSecondSceneFragment(
+                userId = "Test user id"
+            )
+        )*/
     }
 
     private fun updateArticleList(model: List<ArticlesModel>) {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newsFragment"
+        android:title="News"
+        android:icon="@drawable/bottom_nav_home"/>
+    <item
+        android:id="@+id/favouritesFragment"
+        android:title="Favourites"
+        android:icon="@drawable/bottom_nav_favourites"/>
+</menu>

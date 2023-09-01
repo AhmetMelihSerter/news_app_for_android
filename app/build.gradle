@@ -3,18 +3,21 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 
 android {
     namespace 'com.example.newsappforandroid'
-    compileSdk 33
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         applicationId "com.example.newsappforandroid"
-        minSdk 24
-        targetSdk 32
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -36,12 +39,10 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.6.1"
-    def hilt_version = "2.44"
-    def nav_graph_version = "2.6.0"
-    def retrofit_version = "2.9.0"
-    def okhttp_version = "4.10.0"
+
     implementation "androidx.core:core-ktx:1.10.1"
+    /// MultiDex
+    implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
     /// Design
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "com.google.android.material:material:1.9.0"
@@ -51,30 +52,30 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.15.1"
     implementation "com.orhanobut:logger:2.2.0"
     /// Room Database
-    implementation "androidx.room:room-runtime:2.5.2"
-    kapt "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     /// LifeCycle
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     /// Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_graph_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_graph_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navGraphVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navGraphVersion"
     /// Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
     /// Network
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     /// Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 
     /// Tests
-    testImplementation("junit:junit:4.13.2")
+    testImplementation "junit:junit:4.13.2"
     implementation "androidx.test.ext:junit-ktx:1.1.5"
     /// Retrofit
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
+    testImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.okhttpVersion"
 }
 
 kapt {

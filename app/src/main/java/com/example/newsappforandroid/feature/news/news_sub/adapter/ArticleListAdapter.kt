@@ -9,9 +9,12 @@ import com.bumptech.glide.Glide
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.feature._model.ArticlesModel
 
-class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<ArticleListAdapter.ModelViewHolder>() {
+class ArticleListAdapter(
+    private val context: Context,
+) : RecyclerView.Adapter<ArticleListAdapter.ModelViewHolder>() {
 
     private var articleList = mutableListOf<ArticlesModel>()
+    var onItemClickListener: ((ArticlesModel) -> Unit)? = null
 
     fun postValue(value: List<ArticlesModel>) {
         articleList.clear()
@@ -19,10 +22,23 @@ class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<Ar
         notifyDataSetChanged()
     }
 
-    class ModelViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
-        private val titleNews = view.findViewById<TextView>(R.id.title_news)
-        private val descriptionNews = view.findViewById<TextView>(R.id.description_news)
-        private val imageNews = view.findViewById<ImageView>(R.id.image_news)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.news_card_view, parent, false)
+        return ModelViewHolder(view, context)
+    }
+
+    override fun getItemCount(): Int = articleList.size
+
+    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
+        holder.bindItems(articleList[position])
+    }
+
+    inner class ModelViewHolder(itemView: View, private val context: Context) :
+        RecyclerView.ViewHolder(itemView) {
+        private val titleNews = itemView.findViewById<TextView>(R.id.title_news)
+        private val descriptionNews = itemView.findViewById<TextView>(R.id.description_news)
+        private val imageNews = itemView.findViewById<ImageView>(R.id.image_news)
 
         fun bindItems(item: ArticlesModel) {
             titleNews.text = item.title
@@ -31,17 +47,9 @@ class ArticleListAdapter(private val context: Context) : RecyclerView.Adapter<Ar
                 .with(context)
                 .load(item.urlToImage)
                 .into(imageNews)
+            itemView.setOnClickListener {
+                onItemClickListener?.invoke(item)
+            }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_card_view, parent, false)
-        return ModelViewHolder(view, context)
-    }
-
-    override fun getItemCount(): Int = articleList.size
-
-    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(articleList[position])
     }
 }
