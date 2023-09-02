@@ -14,3 +14,8 @@ data class ArticlesModel(
     val publishedAt: String,
     val content: String,
 ): Parcelable
+{
+    override fun hashCode(): Int {
+        return title.hashCode()
+    }
+}

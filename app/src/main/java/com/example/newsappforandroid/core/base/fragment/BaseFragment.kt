@@ -43,7 +43,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
         }
 
         onViewModelPre(savedInstanceState)
-        viewModel.initialize(binding, hideKeyboard)
+        viewModel.initialize(binding, ::hideKeyboard)
 
         return binding.root
     }
@@ -68,7 +68,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
         }
     }
 
-    private val hideKeyboard: () -> Unit = {
+    private fun hideKeyboard() {
         val imm: InputMethodManager =
             requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         requireActivity().currentFocus?.let {
