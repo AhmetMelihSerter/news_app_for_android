@@ -7,5 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsSourceViewModel @Inject constructor() : BaseViewModel<FragmentNewsSourceBinding>() {
+    override fun initialize() {
+    }
 
 }

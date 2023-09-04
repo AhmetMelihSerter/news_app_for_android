@@ -16,22 +16,13 @@
         android:layout_height="match_parent"
         android:onClick="@{() -> viewmodel.hideKeyboard()}" >
 
-        <com.google.android.material.appbar.AppBarLayout
+        <include
+            layout="@layout/app_bar_news"
             android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="Hello World" />
-
-        </com.google.android.material.appbar.AppBarLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:appBarTitle="@{@string/app_name}" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchNewsInputLayout"
@@ -53,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@{viewmodel.searchHasFocus ? @string/home_search_empty : @string/home_search}"
+                android:hint="@{viewmodel.searchHasFocus ? @string/news_search_empty : @string/news_search}"
                 android:gravity="center_horizontal" />
 
         </com.google.android.material.textfield.TextInputLayout>

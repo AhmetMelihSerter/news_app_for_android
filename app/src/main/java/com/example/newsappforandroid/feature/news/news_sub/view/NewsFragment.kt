@@ -2,12 +2,7 @@ package com.example.newsappforandroid.feature.news.news_sub.view
 
 import ArticleListAdapter
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentNewsBinding
@@ -22,7 +17,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
     override val viewModel: NewsViewModel by viewModels()
 
-    override fun onViewModelPre(savedInstanceState: Bundle?) {
+    override fun onViewModelReady(savedInstanceState: Bundle?) {
         viewModel.articleListAdapter = ArticleListAdapter(requireContext())
+        super.onViewModelReady(savedInstanceState)
     }
 }

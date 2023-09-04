@@ -17,8 +17,4 @@ class NewsSourceFragment : BaseFragment<FragmentNewsSourceBinding, NewsSourceVie
     override val layoutId: Int = R.layout.fragment_news_source
 
     override val viewModel: NewsSourceViewModel by viewModels()
-
-    override fun onViewModelPre(savedInstanceState: Bundle?) {
-
-    }
 }

@@ -10,10 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
-import com.example.newsappforandroid.product.constants.utils.LiveDataUtils.observeNonNull
-import com.example.newsappforandroid.product.init.navigation.NavigationCommand
+import com.example.newsappforandroid.product.constants.commands.NavigationCommand
+import com.orhanobut.logger.Logger
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDING>> : Fragment() {
 
@@ -22,9 +26,11 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
 
     protected abstract val viewModel: VM
 
-    private lateinit var binding: BINDING
+    protected lateinit var binding: BINDING
 
-    protected abstract fun onViewModelPre(savedInstanceState: Bundle?)
+    protected open fun onViewModelReady(savedInstanceState: Bundle?) {
+        viewModel.initialize()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,21 +48,23 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
             lifecycleOwner = viewLifecycleOwner
         }
 
-        onViewModelPre(savedInstanceState)
-        viewModel.initialize(binding, ::hideKeyboard)
+        viewModel.setBindingAndKeyboardCallback(binding, ::hideKeyboard)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeNavigation()
+        navigationListener()
+        onViewModelReady(savedInstanceState)
     }
 
-    private fun observeNavigation() {
-        viewModel.navigation.observeNonNull(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { navigationCommand ->
-                handleNavigation(navigationCommand)
+    private fun navigationListener() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.navigation.collect {
+                    handleNavigation(it)
+                }
             }
         }
     }
@@ -69,9 +77,9 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
     }
 
     private fun hideKeyboard() {
-        val imm: InputMethodManager =
-            requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         requireActivity().currentFocus?.let {
+            val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE)
+                    as InputMethodManager
             if (imm.isAcceptingText) {
                 imm.hideSoftInputFromWindow(
                     it.windowToken,

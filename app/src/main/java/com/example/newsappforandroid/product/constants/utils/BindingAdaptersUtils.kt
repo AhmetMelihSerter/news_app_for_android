@@ -24,7 +24,7 @@ object BindingAdaptersUtils {
         if (!url.isNullOrEmpty()) {
             Glide.with(imageView)
                 .load(url)
-                .error(R.drawable.image_not_found)
+                .error(R.drawable.ic_image_not_found)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView)
         }

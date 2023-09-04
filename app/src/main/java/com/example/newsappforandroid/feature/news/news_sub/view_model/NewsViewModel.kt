@@ -37,8 +37,7 @@ class NewsViewModel @Inject constructor(private val service: INewsService) :
 
     private var textChangeCountDownJob: Job = Job()
 
-    override fun initialize(dataViewBinding: FragmentNewsBinding, hideKeyboard: () -> Unit) {
-        super.initialize(dataViewBinding, hideKeyboard)
+    override fun initialize() {
         binding.recyclerViewNews.adapter = articleListAdapter
         articleListAdapter.onItemClickListener = onClickAdapter
         searchEditTextListenerFocus()
@@ -48,18 +47,6 @@ class NewsViewModel @Inject constructor(private val service: INewsService) :
 
     private val onClickAdapter: (it: ArticlesModel) -> Unit = {
         navigate(NewsFragmentDirections.actionNewsFragmentToNewsDetailFragment(it))
-    }
-
-    fun goToSecondFragmentClicked() {
-        //navigate(NewsDetailFragmentDirections())
-    }
-
-    fun goToSecondFragmentWithArgs() {
-        /*navigate(
-            NewsDetailFragmentDirections.actionFirstSceneFragmentToSecondSceneFragment(
-                userId = "Test user id"
-            )
-        )*/
     }
 
     private fun updateArticleList(model: List<ArticlesModel>) {

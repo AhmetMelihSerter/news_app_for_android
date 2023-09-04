@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsAppForAndroid</string>
-    <string name="home_search">Search</string>
-    <string name="home_search_empty" />
+    <string name="app_name">News App For Android</string>
+    <string name="news_search">Search</string>
+    <string name="news_search_empty" />
 </resources>

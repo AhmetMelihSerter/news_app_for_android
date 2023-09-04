@@ -1,4 +1,4 @@
-package com.example.newsappforandroid.product.init.navigation
+package com.example.newsappforandroid.product.constants.commands
 
 import androidx.navigation.NavDirections
 
