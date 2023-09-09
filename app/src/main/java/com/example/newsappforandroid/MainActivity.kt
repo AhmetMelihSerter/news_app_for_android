@@ -17,11 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initLog()
-
-        /*val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        val navView: BottomNavigationView = findViewById(R.id.bottomNavigation)
-        navView.setupWithNavController(navController)*/
+        bindingBottomNav()
     }
 
     private fun initLog() {
@@ -30,5 +26,12 @@ class MainActivity : AppCompatActivity() {
             .tag(ApplicationConstants.APP_NAME)
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+    }
+
+    private fun bindingBottomNav() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigation)
+        bottomNavigation.setupWithNavController(navController)
     }
 }

@@ -13,24 +13,24 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:defaultNavHost="true"
+            android:layout_marginBottom="56dp"
             app:navGraph="@navigation/nav_graph" />
 
-        <!--
-                android:layout_marginBottom="60dp"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:itemIconTint="@drawable/bottom_navigation_colors"
+            android:background="@color/bottom_nav_background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
+            app:menu="@menu/bottom_nav_menu" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_height="60dp"
-                android:layout_width="match_parent"
-                android:id="@+id/bottomNavigation"
-                app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:menu="@menu/bottom_nav_menu" />
-                -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,10 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
 import com.example.newsappforandroid.databinding.FragmentNewsDetailBinding
 import com.example.newsappforandroid.feature._model.ArticlesModel
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +35,7 @@ class NewsDetailViewModel @Inject constructor() : BaseViewModel<FragmentNewsDeta
     val shareDataChannel = _shareDataChannel.receiveAsFlow()
 
     fun shareUrl() {
-        if(_args.value?.url == null) {
+        if (_args.value?.url == null) {
             return
         }
         viewModelScope.launch {
@@ -41,15 +45,14 @@ class NewsDetailViewModel @Inject constructor() : BaseViewModel<FragmentNewsDeta
 
     private val _isFavorite = MutableLiveData(true)
 
-    val isFavorite get() = _isFavorite
-
     private val _isFavoriteChannel = Channel<Boolean>()
 
     val isFavoriteChannel = _isFavoriteChannel.receiveAsFlow()
 
     private fun checkFavorite() {
         viewModelScope.launch {
-            _isFavoriteChannel.send(!(_isFavorite.value!!))
+            _isFavorite.postValue(!(_isFavorite.value!!))
+            _isFavoriteChannel.send(_isFavorite.value!!)
         }
     }
 

@@ -25,8 +25,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
     private val safeArgs: NewsDetailFragmentArgs by navArgs()
 
     override fun onViewModelReady(savedInstanceState: Bundle?) {
-        viewModel.setArgs(safeArgs.article)
         super.onViewModelReady(savedInstanceState)
+        viewModel.setArgs(safeArgs.article)
         shareDataListener()
         favoriteIconListener()
         appBarAddMenu()
@@ -65,11 +65,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
     private fun handleFavoriteIcon(isFavorite: Boolean) {
         val menuItem = binding.appBarLayout.materialToolbar.menu.findItem(R.id.add_favorites)
         if (isFavorite) {
-            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites)
+            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_24)
             return
         }
 
-        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_border)
+        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_border_24)
     }
 
     private fun shareDataListener() {

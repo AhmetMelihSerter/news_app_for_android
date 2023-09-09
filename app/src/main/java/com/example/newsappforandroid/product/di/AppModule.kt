@@ -1,5 +1,6 @@
 package com.example.newsappforandroid.product.di
 
+import com.example.newsappforandroid.BuildConfig
 import com.example.newsappforandroid.product.constants.product.ProductConstants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -33,8 +34,11 @@ object AppModule {
     @Provides
     @Singleton
     fun logInterceptor(): HttpLoggingInterceptor {
-        val interceptor = HttpLoggingInterceptor().apply {
-            //level = HttpLoggingInterceptor.Level.BODY
+        val interceptor = HttpLoggingInterceptor()
+        if(BuildConfig.DEBUG) {
+            interceptor.apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
         }
         return interceptor
     }

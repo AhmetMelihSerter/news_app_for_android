@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.feature._model.ArticlesModel
+import com.bumptech.glide.request.target.Target
 
 class ArticleListAdapter(
     private val context: Context,
@@ -46,6 +47,7 @@ class ArticleListAdapter(
             Glide
                 .with(context)
                 .load(item.urlToImage)
+                .override(Target.SIZE_ORIGINAL)
                 .into(imageNews)
             itemView.setOnClickListener {
                 onItemClickListener?.invoke(item)

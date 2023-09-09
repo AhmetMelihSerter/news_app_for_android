@@ -1,8 +1,11 @@
 package com.example.newsappforandroid.product.di
 
+import com.example.newsappforandroid.feature.favorites.service.FavoritesService
+import com.example.newsappforandroid.feature.favorites.service.IFavoritesService
 import com.example.newsappforandroid.feature.news.news_sub.service.INewsService
 import com.example.newsappforandroid.feature.news.news_sub.service.NewsService
 import com.example.newsappforandroid.product.init.network.NewsApi
+import com.example.newsappforandroid.product.init.storage.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +27,11 @@ class ServiceModule {
     @Singleton
     fun getNewsServiceInstance(newsApi: NewsApi): INewsService {
         return NewsService(newsApi)
+    }
+
+    @Provides
+    @Singleton
+    fun getFavoritesServiceInstance(favoritesDao: FavoritesDao): IFavoritesService {
+        return FavoritesService(favoritesDao)
     }
 }

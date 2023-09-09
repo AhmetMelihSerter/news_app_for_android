@@ -1,5 +1,6 @@
 package com.example.newsappforandroid.core.base.fragment
 
+import com.example.newsappforandroid.BR
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
 import com.example.newsappforandroid.product.constants.commands.NavigationCommand
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDING>> : Fragment() {
@@ -38,15 +38,14 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            layoutInflater,
+            inflater,
             layoutId,
             container,
             false
         )
 
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.setVariable(BR.viewmodel, viewModel)
 
         viewModel.setBindingAndKeyboardCallback(binding, ::hideKeyboard)
 

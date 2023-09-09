@@ -17,7 +17,7 @@
         android:onClick="@{() -> viewmodel.hideKeyboard()}" >
 
         <include
-            layout="@layout/app_bar_news"
+            layout="@layout/app_bar_news_layout"
             android:id="@+id/appBarLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
             app:appBarTitle="@{@string/app_name}" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchNewsInputLayout"
+            android:id="@+id/search_news_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:startIconDrawable="@android:drawable/ic_menu_search">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchNewsTextInputEditText"
+                android:id="@+id/search_news_text_input_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -50,13 +50,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewNews"
+            android:id="@+id/recycler_view_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchNewsInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/search_news_input_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

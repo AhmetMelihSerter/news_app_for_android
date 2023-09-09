@@ -1,18 +1,17 @@
 package com.example.newsappforandroid.product.di
 
-class DatabaseModule {}
-
-/*
+import com.example.newsappforandroid.product.init.storage.FavoritesDao
+import com.example.newsappforandroid.product.init.storage.NewsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 class DatabaseModule {
     @Provides
-    fun provideChannelDao(appDatabase: AppDatabase): AbcDao {
-        return appDatabase.channelDao()
+    fun provideNewsDao(newsDatabase: NewsDatabase): FavoritesDao {
+        return newsDatabase.newsDao()
     }
-}*/
+}
