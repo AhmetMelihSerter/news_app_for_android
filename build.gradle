@@ -15,11 +15,12 @@ ext {
     compileSdk = 33
     targetSdk = 33
     coroutinesVersion = "1.6.4"
-    lifecycleVersion = "2.6.1"
+    lifecycleVersion = "2.6.2"
     hiltVersion = "2.44"
     navGraphVersion = "2.5.3"
     retrofitVersion = "2.9.0"
     okhttpVersion = "4.10.0"
     multidexVersion = "2.0.1"
     roomVersion = "2.5.2"
+    pagingVersion = "3.1.1"
 }

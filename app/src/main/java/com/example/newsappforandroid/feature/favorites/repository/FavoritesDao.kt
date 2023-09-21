@@ -1,7 +1,8 @@
-package com.example.newsappforandroid.product.init.storage
+package com.example.newsappforandroid.feature.favorites.repository
 
 import androidx.room.*
-import com.example.newsappforandroid.feature._model.ArticlesEntity
+import com.example.newsappforandroid.product.constants.database.DatabaseConstants.ARTICLES_TABLE
+import com.example.newsappforandroid.product.entity.ArticlesEntity
 
 @Dao
 interface FavoritesDao {
@@ -9,7 +10,7 @@ interface FavoritesDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun insert(articles: ArticlesEntity)
 
-    @Query("Select * from articles")
+    @Query("Select * from $ARTICLES_TABLE")
     fun getAll(): List<ArticlesEntity>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

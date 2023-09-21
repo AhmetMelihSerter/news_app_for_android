@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsSourceViewModel @Inject constructor() : BaseViewModel<FragmentNewsSourceBinding>() {
+class NewsSourceViewModel @Inject constructor() : BaseViewModel() {
     override fun initialize() {
     }
 

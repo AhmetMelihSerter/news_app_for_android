@@ -16,10 +16,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
-import com.example.newsappforandroid.product.constants.commands.NavigationCommand
+import com.example.newsappforandroid.product.constants.navigation.NavigationCommand
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDING>> : Fragment() {
+abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
     @get:LayoutRes
     protected abstract val layoutId: Int
@@ -45,17 +45,41 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.setVariable(BR.viewmodel, viewModel)
-
-        viewModel.setBindingAndKeyboardCallback(binding, ::hideKeyboard)
+        binding.setVariable(BR.viewModel, viewModel)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideKeyboardListener()
         navigationListener()
         onViewModelReady(savedInstanceState)
+    }
+
+    private fun hideKeyboardListener() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.keyboardStatus.collect {
+                    hideKeyboard()
+                }
+            }
+        }
+    }
+
+    private fun hideKeyboard() {
+        requireActivity().currentFocus?.let {
+            val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE)
+                    as InputMethodManager
+            if (!imm.isAcceptingText) {
+                return
+            }
+            imm.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+            binding.root.clearFocus()
+        }
     }
 
     private fun navigationListener() {
@@ -72,19 +96,6 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel<BINDIN
         when (navCommand) {
             is NavigationCommand.ToDirection -> findNavController().navigate(navCommand.directions)
             is NavigationCommand.Back -> findNavController().navigateUp()
-        }
-    }
-
-    private fun hideKeyboard() {
-        requireActivity().currentFocus?.let {
-            val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE)
-                    as InputMethodManager
-            if (imm.isAcceptingText) {
-                imm.hideSoftInputFromWindow(
-                    it.windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS
-                )
-            }
         }
     }
 }

@@ -18,21 +18,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun okHttpClient(logInterceptor: HttpLoggingInterceptor): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(logInterceptor)
-            .build()
-
-    @Provides
-    @Singleton
     fun logInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         if(BuildConfig.DEBUG) {

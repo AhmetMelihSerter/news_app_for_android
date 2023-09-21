@@ -5,16 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentNewsDetailBinding
 import com.example.newsappforandroid.feature.news.news_detail.view_model.NewsDetailViewModel
 import com.orhanobut.logger.Logger
-import kotlinx.coroutines.launch
 
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailViewModel>() {
 
@@ -53,47 +49,33 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
     }
 
     private fun favoriteIconListener() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.isFavoriteChannel.collect {
-                    handleFavoriteIcon(it)
-                }
-            }
-        }
-    }
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
+            val menuItem = binding.appBarLayout.materialToolbar.menu.findItem(R.id.add_favorites)
+            val favoriteIconSelected =
+                if (it) R.drawable.ic_favorites_24 else R.drawable.ic_favorites_border_24
 
-    private fun handleFavoriteIcon(isFavorite: Boolean) {
-        val menuItem = binding.appBarLayout.materialToolbar.menu.findItem(R.id.add_favorites)
-        if (isFavorite) {
-            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_24)
-            return
+            menuItem.icon = ContextCompat.getDrawable(
+                requireContext(),
+                favoriteIconSelected,
+            )
         }
-
-        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_border_24)
     }
 
     private fun shareDataListener() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.shareDataChannel.collect { data ->
-                    handleShareData(data)
+        viewModel.shareData.observe(viewLifecycleOwner) {
+            try {
+                if (it.isNotEmpty()) {
+                    val sendIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, data)
+                        type = "text/plain"
+                    }
+
+                    startActivity(sendIntent)
                 }
+            } catch (e: ActivityNotFoundException) {
+                Logger.e("Error: $e")
             }
         }
     }
-
-    private fun handleShareData(data: String) {
-        try {
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, data)
-                type = "text/plain"
-            }
-
-            startActivity(sendIntent)
-        } catch (e: ActivityNotFoundException) {
-            Logger.e("Error: $e")
-        }
-    }
-
 }

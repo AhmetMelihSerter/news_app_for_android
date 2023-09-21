@@ -19,7 +19,7 @@
         tools:layout="@layout/fragment_news_detail" >
         <argument
             android:name="article"
-            app:argType="com.example.newsappforandroid.feature._model.ArticlesModel" />
+            app:argType="com.example.newsappforandroid.product.model.ArticlesModel" />
     </fragment>
 
 </navigation>
