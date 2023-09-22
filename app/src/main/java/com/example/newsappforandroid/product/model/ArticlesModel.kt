@@ -1,11 +1,8 @@
 package com.example.newsappforandroid.product.model
 
 import android.os.Parcelable
-import com.example.newsappforandroid.product.utils.DateFormat
+import com.example.newsappforandroid.core.utils.DateFormat
 import kotlinx.parcelize.Parcelize
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Parcelize
 data class ArticlesModel(

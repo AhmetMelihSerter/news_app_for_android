@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private fun bindingBottomNav() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigation)
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setupWithNavController(navController)
     }
 }

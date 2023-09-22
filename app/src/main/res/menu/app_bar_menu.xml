@@ -6,11 +6,11 @@
     <item
         android:id="@+id/share_data"
         android:icon="@drawable/ic_share_24"
-        android:title="Share"
+        android:title="@string/news_detail_share"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/add_favorites"
-        android:title="Favourites"
+        android:title="@string/news_detail_favorite"
         android:icon="@drawable/ic_favorites_border_24"
         app:showAsAction="ifRoom"/>
 

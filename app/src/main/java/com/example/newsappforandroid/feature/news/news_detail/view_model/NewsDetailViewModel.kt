@@ -2,15 +2,21 @@ package com.example.newsappforandroid.feature.news.news_detail.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
+import com.example.newsappforandroid.feature.news.news_detail.repository.INewsDetailRepository
 import com.example.newsappforandroid.product.model.ArticlesModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsDetailViewModel @Inject constructor() : BaseViewModel() {
+class NewsDetailViewModel @Inject constructor(private val repository: INewsDetailRepository) :
+    BaseViewModel() {
 
-    private val _args = MutableLiveData<ArticlesModel?>(null)
+    private val _args = MutableLiveData<ArticlesModel>(null)
 
     val args get() = _args
 
@@ -33,15 +39,28 @@ class NewsDetailViewModel @Inject constructor() : BaseViewModel() {
         _shareData.value = _args.value!!.url
     }
 
-    private val _isFavorite = MutableLiveData(true)
+    private val _isFavorite = MutableLiveData(false)
 
     val isFavorite get() : LiveData<Boolean> = _isFavorite
 
     private fun checkFavorite() {
-        _isFavorite.value = !(_isFavorite.value!!)
+        viewModelScope.launch(Dispatchers.IO) {
+            val isFavorite = repository.checkFavorites(_args.value!!.title)
+
+            withContext(Dispatchers.Main) {
+                _isFavorite.postValue(isFavorite)
+            }
+        }
     }
 
-    fun addFavorite() {
-        checkFavorite()
+    fun addOrRemoveFavorite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isFavorite = _isFavorite.value!!
+            if (isFavorite) repository.addFavorite(_args.value!!)
+            else repository.deleteFavorite(_args.value!!)
+            withContext(Dispatchers.Main) {
+                _isFavorite.postValue(!isFavorite)
+            }
+        }
     }
 }

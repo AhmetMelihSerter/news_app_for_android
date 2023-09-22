@@ -21,5 +21,14 @@
             android:name="article"
             app:argType="com.example.newsappforandroid.product.model.ArticlesModel" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.newsappforandroid.feature.favorites.view.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
 
 </navigation>

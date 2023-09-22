@@ -1,4 +1,4 @@
-package com.example.newsappforandroid.product.entity
+package com.example.newsappforandroid.product.init.database.entity
 
 import androidx.room.*
 import com.example.newsappforandroid.product.constants.database.DatabaseConstants.ArticleSourceForeignKeys
@@ -24,7 +24,7 @@ import com.example.newsappforandroid.product.constants.database.DatabaseConstant
 data class ArticlesEntity(
     @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = ArticleSourceForeignKeys.PARENT_KEY)
-    val sourceId: Int,
+    var sourceId: Int,
     val author: String,
     val title: String,
     val description: String,

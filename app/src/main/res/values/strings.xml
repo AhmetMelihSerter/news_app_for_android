@@ -4,4 +4,6 @@
     <string name="favorites_app_bar_title">Favorites</string>
     <string name="bottom_nav_news">News</string>
     <string name="bottom_nav_favorites">Favorites</string>
+    <string name="news_detail_share">Share</string>
+    <string name="news_detail_favorite">Favorites</string>
 </resources>

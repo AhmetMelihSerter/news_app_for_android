@@ -1,6 +1,5 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +11,10 @@ class ArticleListAdapter(
 ) : ListAdapter<ArticlesModel, ArticleListAdapter.ModelViewHolder>(ArticlesModelComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
-        return ModelViewHolder(
-            NewsCardViewBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+        val binding = NewsCardViewBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
+        return ModelViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {

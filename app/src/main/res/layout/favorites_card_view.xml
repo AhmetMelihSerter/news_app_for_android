@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.newsappforandroid.product.model.ArticlesModel" />
+            type="com.example.newsappforandroid.product.init.database.entity.FavoritesEntity" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="@{item.title}"
+                    android:text="@{item.articlesEntity.title}"
                     android:textAllCaps="true"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="@{item.description}"
+                    android:text="@{item.articlesEntity.description}"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:imageUrl="@{item.urlToImage}"
+                app:imageUrl="@{item.articlesEntity.urlToImage}"
                 tools:srcCompat="@tools:sample/avatars" />
 
         </LinearLayout>

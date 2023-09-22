@@ -11,7 +11,9 @@ import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentNewsDetailBinding
 import com.example.newsappforandroid.feature.news.news_detail.view_model.NewsDetailViewModel
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_news_detail
@@ -21,8 +23,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
     private val safeArgs: NewsDetailFragmentArgs by navArgs()
 
     override fun onViewModelReady(savedInstanceState: Bundle?) {
-        super.onViewModelReady(savedInstanceState)
         viewModel.setArgs(safeArgs.article)
+        super.onViewModelReady(savedInstanceState)
         shareDataListener()
         favoriteIconListener()
         appBarAddMenu()
@@ -40,7 +42,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
                     true
                 }
                 R.id.add_favorites -> {
-                    viewModel.addFavorite()
+                    viewModel.addOrRemoveFavorite()
                     true
                 }
                 else -> false

@@ -25,15 +25,7 @@ class NewsViewModel @Inject constructor(private val repository: INewsRepository)
 
     private var textChangeCountDownJob: Job = Job()
 
-    private val _searchNewsClearText = MutableLiveData(false)
-
-    val searchNewsClearText get() = _searchNewsClearText
-
     private var _newsRequest: NewsRequest? = null
-
-    private fun searchTextClear() {
-        _searchNewsClearText.value = true
-    }
 
     override fun initialize() {
 

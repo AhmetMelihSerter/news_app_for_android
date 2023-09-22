@@ -1,12 +1,14 @@
 package com.example.newsappforandroid.product.di
 
-import com.example.newsappforandroid.feature.favorites.repository.FavoritesDao
+import com.example.newsappforandroid.product.init.database.dao.FavoritesDao
 import com.example.newsappforandroid.feature.favorites.repository.FavoritesRepository
 import com.example.newsappforandroid.feature.favorites.repository.IFavoritesRepository
+import com.example.newsappforandroid.feature.news.news_detail.repository.INewsDetailRepository
+import com.example.newsappforandroid.feature.news.news_detail.repository.NewsDetailRepository
 import com.example.newsappforandroid.feature.news.news_sub.repository.INewsRepository
 import com.example.newsappforandroid.feature.news.news_sub.repository.NewsRepository
 import com.example.newsappforandroid.product.init.network.NewsApi
-import com.example.newsappforandroid.product.utils.DbModelConverter
+import com.example.newsappforandroid.product.init.database.converters.DbModelConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,10 +26,16 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideFavoritesRepositoryInstance(
-        dbModelConverter: DbModelConverter,
-        favoritesDao: FavoritesDao
-    ): IFavoritesRepository {
-        return FavoritesRepository(dbModelConverter, favoritesDao)
+    fun provideNewsDetailRepositoryInstance(
+        converter: DbModelConverter,
+        favoritesDao: FavoritesDao,
+    ): INewsDetailRepository {
+        return NewsDetailRepository(converter, favoritesDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoritesRepositoryInstance(favoritesDao: FavoritesDao): IFavoritesRepository {
+        return FavoritesRepository(favoritesDao)
     }
 }

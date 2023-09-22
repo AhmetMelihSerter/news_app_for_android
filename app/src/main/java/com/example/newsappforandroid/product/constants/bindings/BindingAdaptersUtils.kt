@@ -1,4 +1,4 @@
-package com.example.newsappforandroid.product.utils
+package com.example.newsappforandroid.product.constants.bindings
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

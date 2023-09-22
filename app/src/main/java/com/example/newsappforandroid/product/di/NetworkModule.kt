@@ -1,5 +1,6 @@
 package com.example.newsappforandroid.product.di
 
+import com.example.newsappforandroid.BuildConfig
 import com.example.newsappforandroid.product.init.network.NewsApi
 import com.example.newsappforandroid.product.constants.product.ProductConstants
 import dagger.Module
@@ -32,8 +33,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideLogInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        if(BuildConfig.DEBUG) {
+            interceptor.apply {
+                level = Level.NONE
+            }
+        }
+        return interceptor
+    }
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(logInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        logInterceptor.setLevel(Level.NONE)
         return OkHttpClient.Builder()
             .addInterceptor(logInterceptor)
             .connectTimeout(CONNECT_TIMEOUT, SECONDS)
