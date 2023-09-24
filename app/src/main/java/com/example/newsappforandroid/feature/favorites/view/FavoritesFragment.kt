@@ -1,5 +1,6 @@
 package com.example.newsappforandroid.feature.favorites.view
 
+import com.example.newsappforandroid.product.adapter.ArticleListAdapter
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -7,9 +8,7 @@ import androidx.fragment.app.viewModels
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
 import com.example.newsappforandroid.databinding.FragmentFavoritesBinding
-import com.example.newsappforandroid.feature.favorites.adapter.FavoriteListAdapter
 import com.example.newsappforandroid.feature.favorites.view_model.FavoritesViewModel
-import com.example.newsappforandroid.product.init.database.entity.FavoritesEntity
 import com.example.newsappforandroid.product.model.ArticlesModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +18,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
 
     override val viewModel: FavoritesViewModel by viewModels()
 
-    private lateinit var adapter: FavoriteListAdapter
+    private lateinit var adapter: ArticleListAdapter
 
     override fun onViewModelReady(savedInstanceState: Bundle?) {
         super.onViewModelReady(savedInstanceState)
@@ -28,11 +27,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
     }
 
     private fun initializeAdapter() {
-        adapter = FavoriteListAdapter(::handlerAdapter)
+        adapter = ArticleListAdapter(::handlerAdapter)
         binding.recyclerViewNews.adapter = adapter
     }
 
-    private fun handlerAdapter(model: FavoritesEntity) {
+    private fun handlerAdapter(model: ArticlesModel) {
         viewModel.adapterItemOnClick(model)
     }
 
@@ -43,7 +42,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
         }
     }
 
-    private fun recycleAdapterAnimation(it: List<FavoritesEntity>) {
+    private fun recycleAdapterAnimation(it: List<ArticlesModel>) {
         val anim = AnimationUtils.loadAnimation(
             binding.recyclerViewNews.context,
             if (it.isEmpty()) R.anim.anim_fade_in_down else R.anim.anim_fade_in_up

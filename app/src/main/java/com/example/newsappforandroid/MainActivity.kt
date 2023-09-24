@@ -1,7 +1,9 @@
 package com.example.newsappforandroid
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsappforandroid.core.constants.ApplicationConstants
@@ -30,8 +32,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindingBottomNav() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        val navController = navHostFragment.navController
         bottomNavigation.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.newsFragment || destination.id == R.id.favoritesFragment) {
+                bottomNavigation.visibility = View.VISIBLE
+            } else {
+                bottomNavigation.visibility = View.GONE
+            }
+        }
     }
 }

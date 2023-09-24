@@ -2,12 +2,10 @@ package com.example.newsappforandroid.product.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.newsappforandroid.core.base.parser.BaseParser
 import com.example.newsappforandroid.product.init.database.dao.FavoritesDao
 import com.example.newsappforandroid.product.constants.database.DatabaseConstants.NEWS_DATABASE
 import com.example.newsappforandroid.product.init.database.AppDatabase
-import com.example.newsappforandroid.product.init.database.converters.DbModelConverter
-import com.google.gson.Gson
+import com.example.newsappforandroid.product.init.database.converters.DateConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,9 +19,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideRoomInstance(
-        @ApplicationContext context: Context,
-    ): AppDatabase {
+    fun provideRoomInstance(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, NEWS_DATABASE).build()
     }
 
@@ -35,7 +31,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDbModelConverter(jsonParser: BaseParser): DbModelConverter {
-        return DbModelConverter(jsonParser)
+    fun provideDateConverter(): DateConverter {
+        return DateConverter()
     }
 }

@@ -23,7 +23,7 @@ object BindingAdaptersUtils {
             Glide.with(imageView)
                 .load(url)
                 .error(R.drawable.ic_image_not_found_24)
-                .override(Target.SIZE_ORIGINAL)
+                .override(350, 350)
                 .into(imageView)
         }
     }

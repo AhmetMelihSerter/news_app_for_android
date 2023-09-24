@@ -1,12 +1,10 @@
 package com.example.newsappforandroid.feature.news.news_detail.repository
 
-import com.example.newsappforandroid.product.init.database.converters.DbModelConverter
 import com.example.newsappforandroid.product.init.database.dao.FavoritesDao
 import com.example.newsappforandroid.product.model.ArticlesModel
 import javax.inject.Inject
 
 class NewsDetailRepository @Inject constructor(
-    private val converter: DbModelConverter,
     private val favoritesDao: FavoritesDao,
 ) : INewsDetailRepository {
 
@@ -16,15 +14,10 @@ class NewsDetailRepository @Inject constructor(
     }
 
     override suspend fun addFavorite(model: ArticlesModel) {
-        val sourceEntity = converter.sourceModelToSourceEntity(model.source)
-        favoritesDao.insertSource(sourceEntity)
-        val articlesEntity = converter.articlesModelToArticlesEntity(model)
-        articlesEntity.sourceId = sourceEntity.sourceId
-        favoritesDao.insertArticles(articlesEntity)
+        favoritesDao.insertArticles(model)
     }
 
     override suspend fun deleteFavorite(model: ArticlesModel) {
-        val articlesEntity = converter.articlesModelToArticlesEntity(model)
-        favoritesDao.deleteArticles(articlesEntity)
+        favoritesDao.deleteArticles(model)
     }
 }

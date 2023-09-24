@@ -18,7 +18,7 @@
 
         <include
             layout="@layout/app_bar_news_layout"
-            android:id="@+id/appBarLayout"
+            android:id="@+id/app_bar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,10 +28,11 @@
             android:id="@+id/recycler_view_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

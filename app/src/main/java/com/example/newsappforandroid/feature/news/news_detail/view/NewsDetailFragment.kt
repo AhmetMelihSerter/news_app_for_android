@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment
+import com.example.newsappforandroid.core.constants.Extensions.launchAndRepeatWithViewLifecycle
 import com.example.newsappforandroid.databinding.FragmentNewsDetailBinding
 import com.example.newsappforandroid.feature.news.news_detail.view_model.NewsDetailViewModel
 import com.orhanobut.logger.Logger
@@ -26,8 +27,15 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
         viewModel.setArgs(safeArgs.article)
         super.onViewModelReady(savedInstanceState)
         shareDataListener()
-        favoriteIconListener()
+        favoriteIconInitAndListener()
+        newsSourceButtonListener()
         appBarAddMenu()
+    }
+
+    private fun newsSourceButtonListener() {
+        binding.outlinedButton.setOnClickListener {
+            viewModel.navigateNewsSource()
+        }
     }
 
     private fun appBarAddMenu() {
@@ -50,7 +58,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
         }
     }
 
-    private fun favoriteIconListener() {
+    private fun favoriteIconInitAndListener() {
+        binding.appBarLayout.materialToolbar.inflateMenu(R.menu.app_bar_menu)
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             val menuItem = binding.appBarLayout.materialToolbar.menu.findItem(R.id.add_favorites)
             val favoriteIconSelected =
@@ -64,19 +73,21 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
     }
 
     private fun shareDataListener() {
-        viewModel.shareData.observe(viewLifecycleOwner) {
-            try {
-                if (it.isNotEmpty()) {
-                    val sendIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, data)
-                        type = "text/plain"
-                    }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.shareData.collect {
+                try {
+                    if (it.isNotEmpty()) {
+                        val sendIntent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, data)
+                            type = "text/plain"
+                        }
 
-                    startActivity(sendIntent)
+                        startActivity(sendIntent)
+                    }
+                } catch (e: ActivityNotFoundException) {
+                    Logger.e("Error: $e")
                 }
-            } catch (e: ActivityNotFoundException) {
-                Logger.e("Error: $e")
             }
         }
     }

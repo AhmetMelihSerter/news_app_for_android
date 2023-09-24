@@ -6,4 +6,6 @@
     <string name="bottom_nav_favorites">Favorites</string>
     <string name="news_detail_share">Share</string>
     <string name="news_detail_favorite">Favorites</string>
+    <string name="news_detail_source_text">News Source</string>
+    <string name="news_source_app_bar">News Source</string>
 </resources>

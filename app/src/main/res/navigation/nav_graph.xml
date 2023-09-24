@@ -20,6 +20,9 @@
         <argument
             android:name="article"
             app:argType="com.example.newsappforandroid.product.model.ArticlesModel" />
+        <action
+            android:id="@+id/action_newsDetailFragment_to_newsSourceFragment"
+            app:destination="@id/newsSourceFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -29,6 +32,15 @@
         <action
             android:id="@+id/action_favoritesFragment_to_newsDetailFragment"
             app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsSourceFragment"
+        android:name="com.example.newsappforandroid.feature.news.news_source.view.NewsSourceFragment"
+        android:label="fragment_news_source"
+        tools:layout="@layout/fragment_news_source" >
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 
 </navigation>

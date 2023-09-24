@@ -1,12 +1,11 @@
 package com.example.newsappforandroid.feature.news.news_sub.view
 
-import ArticleListAdapter
+import com.example.newsappforandroid.product.adapter.ArticleListAdapter
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsappforandroid.R
 import com.example.newsappforandroid.core.base.fragment.BaseFragment

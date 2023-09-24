@@ -4,38 +4,36 @@ import androidx.room.*
 import com.example.newsappforandroid.product.constants.database.DatabaseConstants.ARTICLES_TABLE
 import com.example.newsappforandroid.product.constants.database.DatabaseConstants.ARTICLES_TITLE
 import com.example.newsappforandroid.product.constants.database.DatabaseConstants.SOURCES_TABLE
-import com.example.newsappforandroid.product.init.database.entity.ArticlesEntity
-import com.example.newsappforandroid.product.init.database.entity.FavoritesEntity
-import com.example.newsappforandroid.product.init.database.entity.SourceEntity
+import com.example.newsappforandroid.product.model.ArticlesModel
+import com.example.newsappforandroid.product.model.SourceModel
 
 @Dao
 interface FavoritesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertArticles(articles: ArticlesEntity)
+    fun insertArticles(articles: ArticlesModel)
 
-    @Transaction
     @Query("SELECT * FROM $ARTICLES_TABLE")
-    fun getAllFavorites(): List<FavoritesEntity>
+    fun getAllFavorites(): List<ArticlesModel>
 
     @Query("SELECT EXISTS (SELECT 1 FROM $ARTICLES_TABLE WHERE $ARTICLES_TITLE = :title)")
     fun doFavoriteExist(title: String): Boolean?
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateArticles(articles: ArticlesEntity)
+    fun updateArticles(articles: ArticlesModel)
 
     @Delete
-    fun deleteArticles(articles: ArticlesEntity)
+    fun deleteArticles(articles: ArticlesModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSource(articles: SourceEntity)
+    fun insertSource(articles: SourceModel)
 
     @Query("Select * from $SOURCES_TABLE")
-    fun getAllSource(): List<SourceEntity>
+    fun getAllSource(): List<SourceModel>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateSource(articles: SourceEntity)
+    fun updateSource(articles: SourceModel)
 
     @Delete
-    fun deleteSource(articles: SourceEntity)
+    fun deleteSource(articles: SourceModel)
 }

@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -15,6 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.newsappforandroid.core.constants.Extensions.hideKeyboard
+import com.example.newsappforandroid.core.constants.Extensions.launchAndRepeatWithViewLifecycle
 import com.example.newsappforandroid.core.base.view_model.BaseViewModel
 import com.example.newsappforandroid.product.constants.navigation.NavigationCommand
 import kotlinx.coroutines.launch
@@ -58,36 +58,18 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel> : Fra
     }
 
     private fun hideKeyboardListener() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.keyboardStatus.collect {
-                    hideKeyboard()
-                }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.keyboardStatus.collect {
+                hideKeyboard()
+                binding.root.clearFocus()
             }
-        }
-    }
-
-    private fun hideKeyboard() {
-        requireActivity().currentFocus?.let {
-            val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE)
-                    as InputMethodManager
-            if (!imm.isAcceptingText) {
-                return
-            }
-            imm.hideSoftInputFromWindow(
-                it.windowToken,
-                InputMethodManager.HIDE_NOT_ALWAYS
-            )
-            binding.root.clearFocus()
         }
     }
 
     private fun navigationListener() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigation.collect {
-                    handleNavigation(it)
-                }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.navigation.collect {
+                handleNavigation(it)
             }
         }
     }

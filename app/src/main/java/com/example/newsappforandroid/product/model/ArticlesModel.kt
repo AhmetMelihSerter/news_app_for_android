@@ -1,13 +1,22 @@
 package com.example.newsappforandroid.product.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.newsappforandroid.core.utils.DateFormat
+import com.example.newsappforandroid.product.constants.database.DatabaseConstants.ARTICLES_TABLE
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = ARTICLES_TABLE)
 data class ArticlesModel(
+    @PrimaryKey(autoGenerate = true)
+    var articlesId: Int,
+    @Embedded(prefix = "source_")
     val source: SourceModel,
-    val author: String,
+    val author: String?,
     val title: String,
     val description: String,
     val url: String,
@@ -26,26 +35,7 @@ data class ArticlesModel(
         return result
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ArticlesModel
-
-        if (source != other.source) return false
-        if (author != other.author) return false
-        if (title != other.title) return false
-        if (description != other.description) return false
-        if (url != other.url) return false
-        if (urlToImage != other.urlToImage) return false
-        if (publishedAt != other.publishedAt) return false
-        if (content != other.content) return false
-
-        return true
-    }
-
     override fun hashCode(): Int {
-        var result = title.hashCode()
-        return result
+        return articlesId.hashCode()
     }
 }

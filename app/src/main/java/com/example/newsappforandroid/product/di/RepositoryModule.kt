@@ -8,7 +8,6 @@ import com.example.newsappforandroid.feature.news.news_detail.repository.NewsDet
 import com.example.newsappforandroid.feature.news.news_sub.repository.INewsRepository
 import com.example.newsappforandroid.feature.news.news_sub.repository.NewsRepository
 import com.example.newsappforandroid.product.init.network.NewsApi
-import com.example.newsappforandroid.product.init.database.converters.DbModelConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +25,8 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNewsDetailRepositoryInstance(
-        converter: DbModelConverter,
-        favoritesDao: FavoritesDao,
-    ): INewsDetailRepository {
-        return NewsDetailRepository(converter, favoritesDao)
+    fun provideNewsDetailRepositoryInstance(favoritesDao: FavoritesDao): INewsDetailRepository {
+        return NewsDetailRepository(favoritesDao)
     }
 
     @Provides

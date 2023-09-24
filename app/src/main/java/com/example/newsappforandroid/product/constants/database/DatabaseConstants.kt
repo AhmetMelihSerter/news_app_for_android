@@ -5,9 +5,4 @@ object DatabaseConstants {
     const val ARTICLES_TABLE = "articles"
     const val ARTICLES_TITLE = "title"
     const val SOURCES_TABLE = "sources"
-
-    object ArticleSourceForeignKeys {
-        const val PARENT_KEY = "sourceId"
-        const val CHILD_KEY = "sourceId"
-    }
 }
