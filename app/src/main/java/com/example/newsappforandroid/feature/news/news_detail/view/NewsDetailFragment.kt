@@ -79,7 +79,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsDetailVie
                     if (it.isNotEmpty()) {
                         val sendIntent = Intent().apply {
                             action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, data)
+                            putExtra(Intent.EXTRA_TEXT, it)
                             type = "text/plain"
                         }
 
